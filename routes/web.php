@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -27,3 +27,6 @@ Route::get('/wallets/{wallet}', 'WalletController@show');
 
 Route::get('/wallets/{wallet}/payments/create', 'PaymentController@create');
 Route::post('/wallets/{wallet}/payments', 'PaymentController@store');
+
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');

@@ -15,7 +15,7 @@
                     <div class="card-header">Payments</div>
 
                     <div class="card-body">
-                        @include('payment.table', ['payments' => $wallet->payments]);
+                        @include('payment.table', ['payments' => $wallet->payments])
                     </div>
                 </div>
             </div>

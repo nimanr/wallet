@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <h2>Your Total Balance is : 55000 AMD</h2>
-                    <a href="/wallets/create" class="btn btn-primary">Add a new wallet</a>
+
+                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>
