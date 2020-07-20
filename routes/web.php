@@ -26,9 +26,9 @@ Route::get('/dashboard','UserController@index');
 
 Route::get('/wallets/create', 'WalletController@create')->name('CreateWallet');
 Route::post('/wallets', 'WalletController@store');
-Route::get('/wallets/{wallet}', 'WalletController@show');
+Route::get('/wallets/{wallet}', 'WalletController@show')->name('GoToWallet');
 
-Route::get('/wallets/{wallet}/payments/create', 'PaymentController@create');
+Route::get('/wallets/{wallet}/payments/create', 'PaymentController@create')->name('CreatePayment');
 Route::post('/wallets/{wallet}/payments', 'PaymentController@store');
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
