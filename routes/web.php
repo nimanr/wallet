@@ -13,15 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    dd(\Illuminate\Support\Facades\Auth::user());
+//    return view('welcome');
+//});
 
 Auth::routes(['verify'=>true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/wallets/create', 'WalletController@create');
+Route::get('/dashboard','UserController@index');
+
+Route::get('/wallets/create', 'WalletController@create')->name('CreateWallet');
 Route::post('/wallets', 'WalletController@store');
 Route::get('/wallets/{wallet}', 'WalletController@show');
 

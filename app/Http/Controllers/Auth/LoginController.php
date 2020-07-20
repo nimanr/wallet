@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         $facebookUser = Socialite::driver('facebook')->user();
 
-        $user = User::where('provider_id',$facebookUser->getId())
+        $user = User::where('email',$facebookUser->getEmail())
             ->first();
 
         if(!$user) {
@@ -63,7 +63,7 @@ class LoginController extends Controller
     {
         $googleUser = Socialite::driver('google')->user();
 
-        $user = User::where('provider_id',$googleUser->getId())
+        $user = User::where('email',$googleUser->getEmail())
             ->first();
 
         if(!$user) {

@@ -38,4 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wallets(){
         return $this->hasMany(Wallet::class);
     }
+
+    public function payments(){
+        return $this->hasManyThrough('App\wallet');
+    }
 }
