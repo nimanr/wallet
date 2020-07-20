@@ -28,5 +28,6 @@ Route::get('/wallets/{wallet}', 'WalletController@show');
 Route::get('/wallets/{wallet}/payments/create', 'PaymentController@create');
 Route::post('/wallets/{wallet}/payments', 'PaymentController@store');
 
-Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
-Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+

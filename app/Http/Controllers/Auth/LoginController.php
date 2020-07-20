@@ -41,23 +41,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
-    /**
-     * Redirect the user to the GitHub authentication page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectToProvider()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback()
+    protected function facebookLogin()
     {
         $facebookUser = Socialite::driver('facebook')->user();
 
@@ -71,6 +55,59 @@ class LoginController extends Controller
                 'provider_id' => $facebookUser->getId(),
                 'provider' => 'FACEBOOK'
             ]);
+        }
+        return $user;
+    }
+
+    protected function googleLogin()
+    {
+        $googleUser = Socialite::driver('google')->user();
+
+        $user = User::where('provider_id',$googleUser->getId())
+            ->first();
+
+        if(!$user) {
+            $user = User::create([
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'provider_id' => $googleUser->getId(),
+                'provider' => 'GOOGLE'
+            ]);
+        }
+        return $user;
+    }
+
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider($provider)
+    {
+
+        if($provider=='google') {
+            return Socialite::driver('google')->redirect();
+        } elseif($provider=='facebook') {
+            return Socialite::driver('facebook')->redirect();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        if($provider=='google'){
+            $user = $this->googleLogin();
+        } elseif ($provider=='facebook'){
+            $user = $this->facebookLogin();
+        } else {
+            return redirect('/login');
         }
 
         Auth::login($user, true);
