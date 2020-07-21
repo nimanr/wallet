@@ -25,6 +25,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dashboard','UserController@index');
 
 Route::get('/wallets/create', 'WalletController@create')->name('CreateWallet');
+Route::get('/wallets', 'WalletController@index');
 Route::post('/wallets', 'WalletController@store');
 Route::get('/wallets/{wallet}', 'WalletController@show')->name('GoToWallet');
 

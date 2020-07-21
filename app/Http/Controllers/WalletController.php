@@ -17,6 +17,16 @@ class WalletController extends Controller
         return $wallet->payments()->sum('amount');
     }
 
+    public function index(){
+
+        $wallets = auth()->user()->wallets()->get();
+        $sum = [];
+        foreach ($wallets as $wallet){
+            $sum[$wallet->id] = $this->total($wallet);
+        }
+        return view('wallet.index', compact(['wallets', 'sum']));
+    }
+
     public function create(){
         return view('wallet.create');
     }
