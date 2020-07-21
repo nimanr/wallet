@@ -13,19 +13,19 @@ class WalletTest extends TestCase
 
     /* CRUD: READ Start */
     /** @test */
-    public function not_logged_in_users_will_be_redirected_login_page(){
+    public function unauthenticated_users_will_be_redirected_login_page_from_wallet_view(){
         $response = $this->get("/wallets")->assertRedirect('/login');
     }
 
     /** @test */
-    public function not_email_activated_users_will_be_redirected_verifiy_page(){
+    public function inactivated_users_will_be_redirected_verifiy_page_from_wallet_view(){
         $this->actingAs(factory(User::class)->create(['email_verified_at'=>NULL]));
         $response = $this->get("/wallets")->assertRedirect('/email/verify');
     }
     /* CRUD: READ End */
 
     /** @test */
-    public function email_activated_authenticated_users_can_see_wallets(){
+    public function activated_authenticated_users_can_see_wallets(){
 
         $this->actingAs(factory(User::class)->create([]));
 
@@ -34,6 +34,7 @@ class WalletTest extends TestCase
 
     /* CRUD: CRETE Start */
     /** @test */
+
     public function a_wallet_can_be_added(){
 
         $this->actingAs(factory(User::class)->create([]));
